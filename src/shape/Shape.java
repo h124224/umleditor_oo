@@ -1,5 +1,42 @@
 package shape;
 
-public class Shape {
+import java.awt.Graphics;
 
+public class Shape {
+	int depth;
+	
+	private boolean isSelected;
+	private boolean isGrouped;
+	
+	public void setDepth(int depth){
+		this.depth = depth;
+	}
+	
+	
+	public void drawSelf(Graphics g){
+		//do nothing , implements by subclass
+	}
+	
+	public boolean isClicked(int x,int y){
+		//do nothing , implements by subclass
+		return false;
+	}
+
+	public boolean isGrouped() {
+		return isGrouped;
+	}
+
+	public void setGrouped(boolean isGrouped) {
+		this.isGrouped = isGrouped;
+	}
+
+
+	public boolean isSelected() {
+		return isSelected;
+	}
+
+
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
+	}
 }

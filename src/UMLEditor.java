@@ -28,7 +28,6 @@ public class UMLEditor extends JFrame{
 	private GeneralizationLineButton glBtn;
 	
 	//controll
-	public Mode mode;
 	private List<CustomButton> buttons = new ArrayList<CustomButton>();
 	private DetectSelectListner dsl = new DetectSelectListner();
 	
@@ -94,22 +93,16 @@ public class UMLEditor extends JFrame{
         JPanel panelFunction = new JPanel(new GridLayout(6,1));
         //set button
         selBtn = new SelectionButton(new ImageIcon("umleditor/select.png"));
-        selBtn.addActionListener(new SelectionListener(mode));
         buttons.add(selBtn);
         alBtn  = new AssociationLineButton(new ImageIcon("umleditor/accline.png"));
-        alBtn.addActionListener(new AssociationLineListener(mode));
         buttons.add(alBtn);
         clBtn  = new CompositionLineButton(new ImageIcon("umleditor/genline.png"));
-        clBtn.addActionListener(new CompositionLineListener(mode));
         buttons.add(clBtn);
         glBtn  = new GeneralizationLineButton(new ImageIcon("umleditor/comline.png"));
-        glBtn.addActionListener(new GeneralizationLineListener(mode));
         buttons.add(glBtn);
         clsBtn = new ClassButton(new ImageIcon("umleditor/addclass.png"));
-        clsBtn.addActionListener(new ClassListener(mode));
         buttons.add(clsBtn);
         ucBtn  = new UsecaseButton(new ImageIcon("umleditor/addusecase.png"));
-        ucBtn.addActionListener(new UsecaseListener(mode));
         buttons.add(ucBtn);
 
         for(CustomButton btn : buttons){
@@ -122,7 +115,7 @@ public class UMLEditor extends JFrame{
 	
 	private void setPaintingArea(){
 		//set draw area
-		canvas = new Canvas(mode);
+		canvas = new Canvas();
         canvas.setBackground(Color.WHITE);
         add(canvas,BorderLayout.CENTER);
 	}

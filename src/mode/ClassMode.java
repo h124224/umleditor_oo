@@ -1,6 +1,9 @@
 package mode;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
+
+import shape.*;
 
 public class ClassMode extends Mode {
 	private static ClassMode clsMode = null;
@@ -29,7 +32,9 @@ public class ClassMode extends Mode {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		Shape shape = new Clas(new Point(e.getX(),e.getY()));
+		shape.setDepth(shapes.size()+1);
+		shapes.add(shape);
 	}
 
 	@Override

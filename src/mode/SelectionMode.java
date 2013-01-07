@@ -2,6 +2,8 @@ package mode;
 
 import java.awt.event.MouseEvent;
 
+import shape.Shape;
+
 public class SelectionMode extends Mode {
 	private static SelectionMode selMode = null;
 	
@@ -29,14 +31,15 @@ public class SelectionMode extends Mode {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+	
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		//find clicked Object
+		for(Shape shape : shapes){		
+			shape.setSelected(shape.isClicked(e.getX(),e.getY()));
+		}	
 	}
 
 	@Override

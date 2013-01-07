@@ -7,7 +7,4 @@ import mode.Mode;
 import mode.SelectionMode;
 
 public class AssociationLineListener extends CustomActionListener {
-	public AssociationLineListener(Mode mode){
-		super(mode);
-	}
 }

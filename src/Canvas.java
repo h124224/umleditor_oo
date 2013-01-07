@@ -13,11 +13,9 @@ import mode.Mode;
 import shape.*;
 
 public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
-	Mode mode;
 	List<Shape> shapes= new ArrayList<Shape>();
 	
-	Canvas(Mode mode){
-		this.mode = mode;
+	Canvas(){
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 	}
@@ -26,28 +24,32 @@ public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 	public void paintComponent(Graphics g) {  
 		super.paintComponent(g);          
 		Graphics2D g2 = (Graphics2D)g;
-
+		
+		for(Shape shape : shapes){
+			shape.drawSelf(g);
+		}
 	}
 	
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-        mode.mouseClicked(e);
+		Mode.getInstance().setShapes(shapes);
+		Mode.getInstance().mouseClicked(e);
         repaint();
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		mode.mousePressed(e);
+		Mode.getInstance().setShapes(shapes);
+		Mode.getInstance().mousePressed(e);
 		repaint();
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		mode.mouseReleased(e);
+		//mode.mouseReleased(e);
 		repaint();
 	}
 
@@ -65,8 +67,8 @@ public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		mode.mouseDragged(e);
+		Mode.getInstance().setShapes(shapes);
+		Mode.getInstance().mouseDragged(e);
 		repaint();
 	}
 

@@ -7,7 +7,5 @@ import mode.Mode;
 import mode.SelectionMode;
 
 public class CompositionLineListener extends CustomActionListener {
-	public CompositionLineListener(Mode mode){
-		super(mode);
-	}
+
 }

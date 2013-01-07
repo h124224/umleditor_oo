@@ -7,7 +7,4 @@ import mode.Mode;
 import mode.SelectionMode;
 
 public class SelectionListener extends CustomActionListener{
-	public SelectionListener(Mode mode){
-		super(mode);
-	}
 }
