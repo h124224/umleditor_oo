@@ -2,7 +2,7 @@ package mode;
 
 import java.awt.event.MouseEvent;
 
-public class UsecaseMode implements Mode {
+public class UsecaseMode extends Mode {
 	private static UsecaseMode ucMode = null;
 	
 	private UsecaseMode(){

@@ -2,7 +2,7 @@ package mode;
 
 import java.awt.event.MouseEvent;
 
-public class SelectionMode implements Mode {
+public class SelectionMode extends Mode {
 	private static SelectionMode selMode = null;
 	
 	private SelectionMode(){

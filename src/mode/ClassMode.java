@@ -2,7 +2,7 @@ package mode;
 
 import java.awt.event.MouseEvent;
 
-public class ClassMode implements Mode {
+public class ClassMode extends Mode {
 	private static ClassMode clsMode = null;
 	
 	private ClassMode(){

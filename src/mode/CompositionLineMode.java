@@ -2,7 +2,7 @@ package mode;
 
 import java.awt.event.MouseEvent;
 
-public class CompositionLineMode implements Mode {
+public class CompositionLineMode extends Mode {
 	private static CompositionLineMode clMode = null;
 	
 	private CompositionLineMode(){

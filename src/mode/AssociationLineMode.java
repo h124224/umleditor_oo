@@ -2,7 +2,7 @@ package mode;
 
 import java.awt.event.MouseEvent;
 
-public class AssociationLineMode implements Mode {
+public class AssociationLineMode extends Mode {
 	private static AssociationLineMode alMode = null;
 	
 	private AssociationLineMode(){

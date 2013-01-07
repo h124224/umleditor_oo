@@ -2,7 +2,7 @@ package mode;
 
 import java.awt.event.MouseEvent;
 
-public class GeneralizationLineMode implements Mode {
+public class GeneralizationLineMode extends Mode {
 	private static GeneralizationLineMode glMode = null;
 	
 	private GeneralizationLineMode(){
