@@ -1,21 +1,36 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JToggleButton;
+import mode.Mode;
+
+import actions.*;
+import button.*;
 
 public class UMLEditor extends JFrame{
 	//component
-	private JToggleButton[] btnFunction;
-	//private UMLCanvas canvas;
+	private Canvas canvas;
+	private SelectionButton selBtn;
+	private ClassButton clsBtn;
+	private UsecaseButton ucBtn;
+	private AssociationLineButton alBtn;
+	private CompositionLineButton clBtn;
+	private GeneralizationLineButton glBtn;
+	
+	//controll
+	public Mode mode;
+	private List<CustomButton> buttons = new ArrayList<CustomButton>();
+	private DetectSelectListner dsl = new DetectSelectListner();
 	
 	UMLEditor(){
 		// set the property of frame
@@ -24,6 +39,7 @@ public class UMLEditor extends JFrame{
  
         setMenubar();
         setFunctionArea();
+        setPaintingArea();
 	}
 	
 	private void setMenubar(){
@@ -77,24 +93,57 @@ public class UMLEditor extends JFrame{
 		//set function area
         JPanel panelFunction = new JPanel(new GridLayout(6,1));
         //set button
-        btnFunction = new JToggleButton[6];
-        btnFunction[0] = new JToggleButton(new ImageIcon("umleditor/select.png"));
-        btnFunction[1] = new JToggleButton(new ImageIcon("umleditor/accline.png"));
-        btnFunction[2] = new JToggleButton(new ImageIcon("umleditor/genline.png"));
-        btnFunction[3] = new JToggleButton(new ImageIcon("umleditor/comline.png"));
-        btnFunction[4] = new JToggleButton(new ImageIcon("umleditor/addclass.png"));
-        btnFunction[5] = new JToggleButton(new ImageIcon("umleditor/addusecase.png"));
-        for(int i=0;i<6;i++){
-        	//btnFunction[i].addActionListener(fl);
-            panelFunction.add(btnFunction[i]);
+        selBtn = new SelectionButton(new ImageIcon("umleditor/select.png"));
+        selBtn.addActionListener(new SelectionListener(mode));
+        buttons.add(selBtn);
+        alBtn  = new AssociationLineButton(new ImageIcon("umleditor/accline.png"));
+        alBtn.addActionListener(new AssociationLineListener(mode));
+        buttons.add(alBtn);
+        clBtn  = new CompositionLineButton(new ImageIcon("umleditor/genline.png"));
+        clBtn.addActionListener(new CompositionLineListener(mode));
+        buttons.add(clBtn);
+        glBtn  = new GeneralizationLineButton(new ImageIcon("umleditor/comline.png"));
+        glBtn.addActionListener(new GeneralizationLineListener(mode));
+        buttons.add(glBtn);
+        clsBtn = new ClassButton(new ImageIcon("umleditor/addclass.png"));
+        clsBtn.addActionListener(new ClassListener(mode));
+        buttons.add(clsBtn);
+        ucBtn  = new UsecaseButton(new ImageIcon("umleditor/addusecase.png"));
+        ucBtn.addActionListener(new UsecaseListener(mode));
+        buttons.add(ucBtn);
+
+        for(CustomButton btn : buttons){
+        	btn.addActionListener(dsl);
+        	panelFunction.add(btn);
         }
+        
         add(panelFunction,BorderLayout.WEST);
+	}
+	
+	private void setPaintingArea(){
+		//set draw area
+		canvas = new Canvas(mode);
+        canvas.setBackground(Color.WHITE);
+        add(canvas,BorderLayout.CENTER);
 	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		UMLEditor frame = new UMLEditor();
         frame.setVisible(true);
+	}
+	
+	private class DetectSelectListner implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			for(CustomButton btn : buttons)
+				btn.setSelected(false);
+			
+			CustomButton btn = (CustomButton) e.getSource();
+			btn.setSelected(true);
+		}
+		
 	}
 
 }

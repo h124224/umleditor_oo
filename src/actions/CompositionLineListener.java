@@ -3,12 +3,11 @@ package actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CompositionLineListener implements ActionListener {
+import mode.Mode;
+import mode.SelectionMode;
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
+public class CompositionLineListener extends CustomActionListener {
+	public CompositionLineListener(Mode mode){
+		super(mode);
 	}
-
 }

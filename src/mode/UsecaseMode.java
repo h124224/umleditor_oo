@@ -3,7 +3,17 @@ package mode;
 import java.awt.event.MouseEvent;
 
 public class UsecaseMode implements Mode {
-
+	private static UsecaseMode ucMode = null;
+	
+	private UsecaseMode(){
+		
+	}
+	
+	public static UsecaseMode getInstance(){
+		if(ucMode==null)
+			ucMode = new UsecaseMode();
+		return ucMode;		
+	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -19,7 +29,6 @@ public class UsecaseMode implements Mode {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

@@ -3,7 +3,18 @@ package mode;
 import java.awt.event.MouseEvent;
 
 public class SelectionMode implements Mode {
-
+	private static SelectionMode selMode = null;
+	
+	private SelectionMode(){
+		
+	}
+	
+	public static SelectionMode getInstance(){
+		if(selMode==null)
+			selMode = new SelectionMode();
+		return selMode;		
+	}
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub

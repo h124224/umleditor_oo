@@ -3,12 +3,11 @@ package actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AssociationLineListener implements ActionListener {
+import mode.Mode;
+import mode.SelectionMode;
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
+public class AssociationLineListener extends CustomActionListener {
+	public AssociationLineListener(Mode mode){
+		super(mode);
 	}
-
 }

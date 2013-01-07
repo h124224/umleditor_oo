@@ -3,7 +3,17 @@ package mode;
 import java.awt.event.MouseEvent;
 
 public class ClassMode implements Mode {
-
+	private static ClassMode clsMode = null;
+	
+	private ClassMode(){
+		
+	}
+	
+	public static ClassMode getInstance(){
+		if(clsMode==null)
+			clsMode = new ClassMode();
+		return clsMode;		
+	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
