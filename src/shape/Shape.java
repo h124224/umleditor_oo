@@ -3,13 +3,17 @@ package shape;
 import java.awt.Graphics;
 
 public class Shape {
-	int depth;
+	private int depth;
 	
 	private boolean isSelected;
 	private boolean isGrouped;
 	
 	public void setDepth(int depth){
 		this.depth = depth;
+	}
+	
+	public int getDepth(){
+		return depth;
 	}
 	
 	
