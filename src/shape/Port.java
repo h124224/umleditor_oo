@@ -5,10 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Port {
-	Point location;
-	List<Line> lines = new ArrayList<Line>();
+	public Point location;
+	private List<Line> lines = new ArrayList<Line>();
 	
-	Port(Point location){
+	public Port(){
+		
+	}
+	
+	public Port(Point location){
 		this.location = location;
+	}
+	
+	public List<Line> getLines(){
+		return lines;
 	}
 }

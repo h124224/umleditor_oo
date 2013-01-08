@@ -12,17 +12,22 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import mode.Mode;
+import mode.*;
 import mode.SelectionMode;
 import shape.*;
 
 public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 	List<Shape> shapes= new ArrayList<Shape>();
 	SelectedArea selectedArea = new SelectedArea();
+	VirtualLine virtualLine = new VirtualLine();
 	
 	Canvas(){
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
+		SelectionMode.getInstance().useSelectedArea(selectedArea);
+		AssociationLineMode.getInstance().useVirturlLine(virtualLine);
+		CompositionLineMode.getInstance().useVirturlLine(virtualLine);
+		GeneralizationLineMode.getInstance().useVirturlLine(virtualLine);
 	}
 	
 	@Override
@@ -32,6 +37,10 @@ public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 		
 		if(selectedArea.isSelectedArea()){
 			selectedArea.drawSelf(g);
+		}
+		
+		if(virtualLine.isVirtualLine()){
+			virtualLine.drawSelf(g);
 		}
 		
 		//print shapes
@@ -58,7 +67,8 @@ public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		selectedArea.setSelectedArea(false);
+		Mode.getInstance().setShapes(shapes);
+		Mode.getInstance().mouseReleased(e);
 		repaint();
 	}
 
@@ -76,7 +86,7 @@ public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		SelectionMode.getInstance().setSelectedArea(selectedArea);
+		//useVirturlLine
 		Mode.getInstance().setShapes(shapes);
 		Mode.getInstance().mouseDragged(e);
 		repaint();

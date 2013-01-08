@@ -5,6 +5,7 @@ import javax.swing.JToggleButton;
 
 import actions.GeneralizationLineListener;
 
+import mode.AssociationLineMode;
 import mode.ClassMode;
 import mode.GeneralizationLineMode;
 

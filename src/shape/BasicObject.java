@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -16,28 +18,40 @@ public class BasicObject extends Shape{
 	int deltaX;
 	int deltaY;
 	
-	Port top;
-	Port bot;
-	Port left;
-	Port right;
-
+	Port top = new Port();
+	Port bot = new Port();;
+	Port left = new Port();;
+	Port right = new Port();;
+	List<Port> ports = new ArrayList<Port>();
 	
-	void countPortLocation(Point location){
-		top   = new Port(new Point(location.x+width/2,location.y+0));
-		bot   = new Port(new Point(location.x+width/2,location.y+height-3));
-		left  = new Port(new Point(location.x+0,location.y+height/2-3));
-		right = new Port(new Point(location.x+width-3,location.y+height/2-3));
+	
+	BasicObject(){
+		ports.add(top);
+		ports.add(bot);
+		ports.add(left);
+		ports.add(right);
 	}
 	
 	public void setName(String name){
 		this.name = name;
 	}
 	
-	@Override
-	public void setLocation(Point location){
-		this.location = location;
-		countPortLocation(location);
+	public Port findCorrectPort(Point location){
+		double min = 999999;
+		Port closest = null;
+		
+		for(Port port : ports){
+			double distance = Math.sqrt((location.x-port.location.x)*(location.x-port.location.x)
+					+ (location.y-port.location.y)*(location.y-port.location.y));
+			if(min >= distance){
+				min = distance;
+				closest = port;
+			}
+			
+		}
+		return closest;
 	}
+	
 	
 	private void drawPorts(Graphics g){
 		g.setColor(Color.black);
@@ -45,6 +59,19 @@ public class BasicObject extends Shape{
 		g.fillRect(bot.location.x-1, bot.location.y-2, 5, 5);
 		g.fillRect(left.location.x, left.location.y, 5, 5);
 		g.fillRect(right.location.x, right.location.y, 5, 5);
+	}
+	
+	private void countPortLocation(Point location){
+		top.location   = new Point(location.x+width/2,location.y+0);
+		bot.location   = new Point(location.x+width/2,location.y+height-3);
+		left.location  = new Point(location.x+0,location.y+height/2-3);
+		right.location = new Point(location.x+width-3,location.y+height/2-3);
+	}
+	
+	@Override
+	public void setLocation(Point location){
+		this.location = location;
+		countPortLocation(location);
 	}
 	
 	@Override

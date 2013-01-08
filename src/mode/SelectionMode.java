@@ -39,17 +39,6 @@ public class SelectionMode extends Mode {
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-	
-	}
-
-	@Override
 	public void mousePressed(MouseEvent e) {
 		sp = new Point(e.getX(),e.getY());
 		
@@ -76,8 +65,7 @@ public class SelectionMode extends Mode {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		selectedArea.setSelectedArea(false);
 	}
 	
 	private void changeDepth(Shape shape){
@@ -97,7 +85,7 @@ public class SelectionMode extends Mode {
 		}
 	}
 	
-	public void setSelectedArea(SelectedArea selectedArea){
+	public void useSelectedArea(SelectedArea selectedArea){
 		this.selectedArea = selectedArea;
 	}
 	

@@ -93,10 +93,10 @@ public class UMLEditor extends JFrame{
         buttons.add(selBtn);
         alBtn  = new AssociationLineButton(new ImageIcon("umleditor/accline.png"));
         buttons.add(alBtn);
-        clBtn  = new CompositionLineButton(new ImageIcon("umleditor/genline.png"));
-        buttons.add(clBtn);
-        glBtn  = new GeneralizationLineButton(new ImageIcon("umleditor/comline.png"));
+        glBtn  = new GeneralizationLineButton(new ImageIcon("umleditor/genline.png"));
         buttons.add(glBtn);
+        clBtn  = new CompositionLineButton(new ImageIcon("umleditor/comline.png"));
+        buttons.add(clBtn);
         clsBtn = new ClassButton(new ImageIcon("umleditor/addclass.png"));
         buttons.add(clsBtn);
         ucBtn  = new UsecaseButton(new ImageIcon("umleditor/addusecase.png"));
