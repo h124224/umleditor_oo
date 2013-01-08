@@ -1,8 +1,11 @@
 package shape;
 
 import java.awt.Graphics;
+import java.awt.Point;
 
 public class Shape {
+	Point location;
+	
 	private int depth;
 	
 	private boolean isSelected;
@@ -19,6 +22,10 @@ public class Shape {
 	
 	public void drawSelf(Graphics g){
 		//do nothing , implements by subclass
+	}
+	
+	public void setLocation(Point location){
+		this.location = location;
 	}
 	
 	public boolean isClicked(int x,int y){

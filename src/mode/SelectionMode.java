@@ -1,17 +1,20 @@
 package mode;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import shape.SelectedArea;
 import shape.Shape;
 
 public class SelectionMode extends Mode {
 	private static SelectionMode selMode = null;
 	List<Shape> selectedShapes = new ArrayList<Shape>();
 	Shape selected;
+	SelectedArea selectedArea;
 	
 	private SelectionMode(){
 		
@@ -25,11 +28,12 @@ public class SelectionMode extends Mode {
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		ep = new Point(e.getX(),e.getY());
 		if(selected != null){
-			
+			selected.setLocation(ep);
 		}
 		else {
-			
+			drawSelectedArea(sp,ep);
 		}
 	}
 
@@ -46,6 +50,8 @@ public class SelectionMode extends Mode {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		sp = new Point(e.getX(),e.getY());
+		
 		//find clicked Object
 		boolean find = false;
 		for(Shape shape : shapes){		
@@ -88,6 +94,18 @@ public class SelectionMode extends Mode {
 			Shape s = shapes.get(i);
 			s.setDepth(i+1);		
 		}
+	}
+	
+	public void setSelectedArea(SelectedArea selectedArea){
+		this.selectedArea = selectedArea;
+	}
+	
+	private void drawSelectedArea(Point sp,Point ep){
+		selectedArea.setSelectedArea(true);
+		selectedArea.sp.x = (sp.x>ep.x)? ep.x:sp.x;
+		selectedArea.sp.y = (sp.y>ep.y)? ep.y:sp.y;
+		selectedArea.ep.x = (sp.x>ep.x)? sp.x:ep.x;
+		selectedArea.ep.y = (sp.y>ep.y)? sp.y:ep.y;
 	}
 
 }

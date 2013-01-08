@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 
 
 public class BasicObject extends Shape{
-	Point location;
 	int width,height;
 	String pic;
 	String name="";
@@ -33,6 +32,12 @@ public class BasicObject extends Shape{
 	
 	public void setName(String name){
 		this.name = name;
+	}
+	
+	@Override
+	public void setLocation(Point location){
+		this.location = location;
+		countPortLocation(location);
 	}
 	
 	private void drawPorts(Graphics g){

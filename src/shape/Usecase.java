@@ -9,7 +9,6 @@ public class Usecase extends BasicObject{
 		this.height = 53;
 		this.deltaX = 5;
 		this.deltaY = 5;
-		this.location = location;
-		this.countPortLocation(location);
+		setLocation(location);
 	}
 }

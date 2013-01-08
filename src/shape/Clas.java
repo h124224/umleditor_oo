@@ -9,7 +9,6 @@ public class Clas extends BasicObject{
 		this.deltaY = -25;
 		this.width = 73;
 		this.height = 98;
-		this.location = location;
-		this.countPortLocation(location);
+		setLocation(location);
 	}
 }

@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,10 +11,12 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import mode.Mode;
+import mode.SelectionMode;
 import shape.*;
 
 public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 	List<Shape> shapes= new ArrayList<Shape>();
+	SelectedArea selectedArea = new SelectedArea();
 	
 	Canvas(){
 		this.addMouseListener(this);
@@ -25,8 +28,12 @@ public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 		super.paintComponent(g);          
 		Graphics2D g2 = (Graphics2D)g;
 		
+		if(selectedArea.isSelectedArea()){
+			selectedArea.drawSelf(g);
+		}
+		
+		//print shapes
 		for(Shape shape : shapes){
-			//System.out.println(shape.getClass()+" "+shape.isSelected()+" "+shape.getDepth());
 			shape.drawSelf(g);
 		}
 	}
@@ -49,8 +56,7 @@ public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		//mode.mouseReleased(e);
+		selectedArea.setSelectedArea(false);
 		repaint();
 	}
 
@@ -68,6 +74,7 @@ public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		SelectionMode.getInstance().setSelectedArea(selectedArea);
 		Mode.getInstance().setShapes(shapes);
 		Mode.getInstance().mouseDragged(e);
 		repaint();
