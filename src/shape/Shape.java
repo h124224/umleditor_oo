@@ -5,6 +5,7 @@ import java.awt.Point;
 
 public class Shape {
 	Point location;
+	int width,height;
 	
 	private int depth;
 	

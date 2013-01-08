@@ -12,9 +12,9 @@ import shape.Shape;
 
 public class SelectionMode extends Mode {
 	private static SelectionMode selMode = null;
-	List<Shape> selectedShapes = new ArrayList<Shape>();
-	Shape selected;
-	SelectedArea selectedArea;
+	private List<Shape> selectedShapes = new ArrayList<Shape>();
+	private Shape selected;
+	private SelectedArea selectedArea;
 	
 	private SelectionMode(){
 		
@@ -34,6 +34,7 @@ public class SelectionMode extends Mode {
 		}
 		else {
 			drawSelectedArea(sp,ep);
+			selectObjectsInArea();
 		}
 	}
 
@@ -100,6 +101,10 @@ public class SelectionMode extends Mode {
 		this.selectedArea = selectedArea;
 	}
 	
+	public Shape getSelectedObject(){
+		return selected;
+	}
+	
 	private void drawSelectedArea(Point sp,Point ep){
 		selectedArea.setSelectedArea(true);
 		selectedArea.sp.x = (sp.x>ep.x)? ep.x:sp.x;
@@ -107,5 +112,16 @@ public class SelectionMode extends Mode {
 		selectedArea.ep.x = (sp.x>ep.x)? sp.x:ep.x;
 		selectedArea.ep.y = (sp.y>ep.y)? sp.y:ep.y;
 	}
+	
+	private void selectObjectsInArea(){
+		for(Shape shape : shapes){
+			if(selectedArea.isInArea(shape)){
+				shape.setSelected(true);
+				selectedShapes.add(shape);
+			}
+		}
+	}
+	
+
 
 }

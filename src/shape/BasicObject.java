@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 
 
 public class BasicObject extends Shape{
-	int width,height;
 	String pic;
 	String name="";
 	int deltaX;

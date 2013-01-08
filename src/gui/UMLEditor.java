@@ -1,3 +1,5 @@
+package gui;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -29,7 +31,8 @@ public class UMLEditor extends JFrame{
 	
 	//controll
 	private List<CustomButton> buttons = new ArrayList<CustomButton>();
-	private DetectSelectListner dsl = new DetectSelectListner();
+	private DetectButtonStateListner dl = new DetectButtonStateListner();
+	private ChangeObjectNameListener cl = new ChangeObjectNameListener();
 	
 	UMLEditor(){
 		// set the property of frame
@@ -78,13 +81,7 @@ public class UMLEditor extends JFrame{
         
         menuEdit.addSeparator();
         JMenuItem changeObjName = new JMenuItem("Change Object Name");
-        //changeObjName.setEnabled(false);
-        changeObjName.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-	
-			}      	
-        });
+        changeObjName.addActionListener(cl);
         menuEdit.add(changeObjName);
 	}
 	
@@ -106,7 +103,7 @@ public class UMLEditor extends JFrame{
         buttons.add(ucBtn);
 
         for(CustomButton btn : buttons){
-        	btn.addActionListener(dsl);
+        	btn.addActionListener(dl);
         	panelFunction.add(btn);
         }
         
@@ -118,6 +115,7 @@ public class UMLEditor extends JFrame{
 		canvas = new Canvas();
         canvas.setBackground(Color.WHITE);
         add(canvas,BorderLayout.CENTER);
+        cl.useCanvas(canvas);
 	}
 	
 	public static void main(String[] args) {
@@ -126,7 +124,7 @@ public class UMLEditor extends JFrame{
         frame.setVisible(true);
 	}
 	
-	private class DetectSelectListner implements ActionListener{
+	private class DetectButtonStateListner implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
