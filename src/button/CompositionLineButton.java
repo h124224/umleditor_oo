@@ -2,8 +2,7 @@ package button;
 
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
-
-import actions.CompositionLineListener;
+import actions.CustomActionListener;
 
 import mode.AssociationLineMode;
 import mode.ClassMode;
@@ -14,5 +13,9 @@ public class CompositionLineButton extends CustomButton {
 		super(icon);
         this.addActionListener(new CompositionLineListener());
 		this.mode = CompositionLineMode.getInstance();
+	}
+	
+	private class CompositionLineListener extends CustomActionListener{
+		
 	}
 }

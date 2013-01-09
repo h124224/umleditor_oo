@@ -33,6 +33,7 @@ public class UMLEditor extends JFrame{
 	private List<CustomButton> buttons = new ArrayList<CustomButton>();
 	private DetectButtonStateListner dl = new DetectButtonStateListner();
 	private ChangeObjectNameListener cl = new ChangeObjectNameListener();
+	private GroupListener gl = new GroupListener();
 	
 	UMLEditor(){
 		// set the property of frame
@@ -61,13 +62,7 @@ public class UMLEditor extends JFrame{
         menuFile.add(new JMenuItem("Close"));
         
         JMenuItem group = new JMenuItem("Group");
-        group.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
-			}      	
-        });
+        group.addActionListener(gl);
         menuEdit.add(group);
         
         JMenuItem ungroup = new JMenuItem("Ungroup");
@@ -116,6 +111,7 @@ public class UMLEditor extends JFrame{
         canvas.setBackground(Color.WHITE);
         add(canvas,BorderLayout.CENTER);
         cl.useCanvas(canvas);
+        gl.useCanvas(canvas);
 	}
 	
 	public static void main(String[] args) {

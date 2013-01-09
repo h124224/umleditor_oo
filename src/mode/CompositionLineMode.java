@@ -34,11 +34,17 @@ private static CompositionLineMode clMode = null;
 	public void mousePressed(MouseEvent e) {
 		sp = new Point(e.getX(),e.getY());
 		
-		//find clicked Object
-		for(Shape shape : shapes){		
-			if(shape.isClicked(e.getX(),e.getY())){
-				obj1 = (BasicObject) shape;
+		
+		try{
+			//find clicked Object
+			for(Shape shape : shapes){		
+				if(shape.isClicked(e.getX(),e.getY())){
+					obj1 = (BasicObject) shape;
+				}
 			}
+		}
+		catch(ClassCastException exception){
+			;
 		}
 	}
 
@@ -46,24 +52,30 @@ private static CompositionLineMode clMode = null;
 	public void mouseReleased(MouseEvent e) {
 		virtualLine.setVirtualLine(false);
 		
-		for(Shape shape : shapes){		
-			if(shape.isClicked(e.getX(),e.getY())){
-				obj2 = (BasicObject) shape;
+		try{
+			for(Shape shape : shapes){		
+				if(shape.isClicked(e.getX(),e.getY())){
+					obj2 = (BasicObject) shape;
+				}
+			}
+			
+			
+			if(obj1 != null && obj2 !=null){
+				Port port1 = obj1.findCorrectPort(sp);
+				Port port2 = obj2.findCorrectPort(ep);
+				CompositionLine cl = new CompositionLine(port1,port2);
+				cl.setDepth(Shape.minDepth);
+				port1.getLines().add(cl);
+				port2.getLines().add(cl);
+				shapes.add(cl);
+				Canvas.resortShapes(cl, shapes);
+			}
+			else{
+				System.out.println("Not connect any object.");
 			}
 		}
-		
-		if(obj1 != null && obj2 !=null){
-			Port port1 = obj1.findCorrectPort(sp);
-			Port port2 = obj2.findCorrectPort(ep);
-			CompositionLine cl = new CompositionLine(port1,port2);
-			cl.setDepth(Shape.minDepth);
-			port1.getLines().add(cl);
-			port2.getLines().add(cl);
-			shapes.add(cl);
-			Canvas.resortShapes(cl, shapes);
-		}
-		else{
-			System.out.println("Not connect any object.");
+		catch(ClassCastException exception){
+			;
 		}
 	}
 	

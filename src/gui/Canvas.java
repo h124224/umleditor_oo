@@ -47,7 +47,6 @@ public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 		//print shapes
 		for(Shape shape : shapes){
 			shape.drawSelf(g);
-			System.out.println(shape.getClass()+" "+shape.getDepth()+" "+shapes.indexOf(shape));
 		}
 	}
 	

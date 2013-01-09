@@ -15,8 +15,8 @@ import javax.imageio.ImageIO;
 public class BasicObject extends Shape{
 	String pic;
 	String name="";
-	int deltaX;
-	int deltaY;
+	int deviationX; // let name middle
+	int deviationY;
 	
 	Port top = new Port();
 	Port bot = new Port();;
@@ -82,7 +82,7 @@ public class BasicObject extends Shape{
 			g.setColor(Color.red);
 			
 			// -10 +5 to put word at middle
-			g.drawString(name, location.x+width/2-deltaX, location.y+height/2+deltaY); 
+			g.drawString(name, location.x+width/2-deviationX, location.y+height/2+deviationY); 
 			
 			//is selected
 			if(isSelected())
@@ -96,6 +96,7 @@ public class BasicObject extends Shape{
 	@Override
 	public boolean isClicked(int x,int y){
 		return x >= location.x && x <= location.x+width
-				&& y >= location.y && y <= location.y+height;
+				&& y >= location.y && y <= location.y+height
+				&& !isGrouped();
 	}
 }

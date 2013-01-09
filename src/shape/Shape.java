@@ -9,13 +9,16 @@ import java.util.List;
 public class Shape {
 	public static final int maxDepth = 99999999;
 	public static final int minDepth = -1;
-	Point location;
-	int width,height;
+	
+	public Point location;
+	public int deltaX;
+	public int deltaY;
+	public int width,height;
 	
 	private int depth;
 	
-	private boolean isSelected;
-	private boolean isGrouped;
+	private boolean isSelected = false;
+	private boolean isGrouped = false;
 	
 	public void setDepth(int depth){
 		this.depth = depth;

@@ -3,7 +3,7 @@ package button;
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
 
-import actions.GeneralizationLineListener;
+import actions.CustomActionListener;
 
 import mode.AssociationLineMode;
 import mode.ClassMode;
@@ -14,5 +14,9 @@ public class GeneralizationLineButton extends CustomButton {
 		super(icon);
         this.addActionListener(new GeneralizationLineListener());
 		this.mode = GeneralizationLineMode.getInstance();
+	}
+	
+	private class GeneralizationLineListener extends CustomActionListener{
+		
 	}
 }

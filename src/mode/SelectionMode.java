@@ -31,12 +31,15 @@ public class SelectionMode extends Mode {
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		ep = new Point(e.getX(),e.getY());
-		if(selected != null){
-			selected.setLocation(ep);
+		if(selectedShapes.size() >= 2){
+			for(Shape selected : selectedShapes)
+				selected.setLocation(new Point(ep.x-selected.deltaX,ep.y-selected.deltaY));
+		}
+		else if(selected != null){
+			selected.setLocation(new Point(ep.x-selected.deltaX,ep.y-selected.deltaY));
 		}
 		else {
 			drawSelectedArea(sp,ep);
-			selectObjectsInArea();
 		}
 	}
 
@@ -49,27 +52,46 @@ public class SelectionMode extends Mode {
 		for(Shape shape : shapes){		
 			if(shape.isClicked(e.getX(),e.getY()) && !find){
 				find = true;
-				shape.setSelected(true);
-				selectedShapes.add(shape);
 				selected = shape;
 			}
 			else {
-				shape.setSelected(false);
-				selectedShapes.remove(shape);
+				if(selectedShapes.isEmpty())
+					shape.setSelected(false);
 			}
 		}	
 		
-		if(!find)
-			selected = null;
+		if(selectedShapes.isEmpty()){
+			if(!find)
+				selected = null;
+			else{
+				selected.setSelected(true);
+				selected.setDepth(Shape.maxDepth);
+				selected.deltaX = sp.x - selected.location.x;
+				selected.deltaY = sp.y - selected.location.y;
+				Canvas.resortShapes(selected,shapes);
+			}
+		}
 		else{
-			selected.setDepth(Shape.maxDepth);
-			Canvas.resortShapes(selected,shapes);
+			if(find){
+				for(Shape selected : selectedShapes){
+					selected.deltaX = sp.x - selected.location.x;
+					selected.deltaY = sp.y - selected.location.y;
+				}
+			}
+			else{
+				for(Shape selected : selectedShapes)
+					selected.setSelected(false);
+				selectedShapes.clear();
+				selected = null;
+				drawSelectedArea(new Point(0,0),new Point(0,0));
+			}
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		selectedArea.setSelectedArea(false);
+		selectObjectsInArea();
 	}
 	
 	public void useSelectedArea(SelectedArea selectedArea){
@@ -80,7 +102,15 @@ public class SelectionMode extends Mode {
 		return selected;
 	}
 	
-	private void drawSelectedArea(Point sp,Point ep){
+	public List<Shape> getShapes(){
+		return shapes;
+	}
+	
+	public List<Shape> getSelectedObjects(){
+		return selectedShapes;
+	}
+	
+	public void drawSelectedArea(Point sp,Point ep){
 		selectedArea.setSelectedArea(true);
 		selectedArea.sp.x = (sp.x>ep.x)? ep.x:sp.x;
 		selectedArea.sp.y = (sp.y>ep.y)? ep.y:sp.y;
@@ -90,7 +120,7 @@ public class SelectionMode extends Mode {
 	
 	private void selectObjectsInArea(){
 		for(Shape shape : shapes){
-			if(selectedArea.isInArea(shape)){
+			if(selectedArea.isInArea(shape) && !shape.isGrouped()){
 				shape.setSelected(true);
 				selectedShapes.add(shape);
 			}
