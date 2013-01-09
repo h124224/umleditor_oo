@@ -61,7 +61,7 @@ public class AssociationLineMode extends Mode {
 			}
 			
 			
-			if(obj1 != null && obj2 !=null){
+			if(obj1!=null && obj2!=null && obj1!=obj2){
 				Port port1 = obj1.findCorrectPort(sp);
 				Port port2 = obj2.findCorrectPort(ep);
 				AssociationLine al = new AssociationLine(port1,port2);
@@ -77,6 +77,9 @@ public class AssociationLineMode extends Mode {
 		}
 		catch(ClassCastException exception){
 			;
+		}
+		finally{
+			obj1 = obj2 = null;
 		}
 	}
 	

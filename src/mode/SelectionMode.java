@@ -102,6 +102,10 @@ public class SelectionMode extends Mode {
 		return selected;
 	}
 	
+	public void setSelectedObject(Shape shape){
+		this.selected = shape;
+	}
+	
 	public List<Shape> getShapes(){
 		return shapes;
 	}
