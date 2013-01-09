@@ -1,5 +1,7 @@
 package mode;
 
+import gui.Canvas;
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -59,30 +61,15 @@ public class SelectionMode extends Mode {
 		
 		if(!find)
 			selected = null;
-		else
-			changeDepth(selected);
+		else{
+			selected.setDepth(Shape.maxDepth);
+			Canvas.resortShapes(selected,shapes);
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		selectedArea.setSelectedArea(false);
-	}
-	
-	private void changeDepth(Shape shape){
-		shape.setDepth(0);
-		Collections.sort(shapes,
-			new Comparator<Shape>() {
-				public int compare(Shape s1, Shape s2) {
-					return s2.getDepth()-s1.getDepth();
-				}
-			}
-		);
-		
-		//re-number depth of object
-		for(int i=shapes.size()-1;i>=0;i--){
-			Shape s = shapes.get(i);
-			s.setDepth(i+1);		
-		}
 	}
 	
 	public void useSelectedArea(SelectedArea selectedArea){

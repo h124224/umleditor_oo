@@ -34,13 +34,19 @@ public class SelectedArea {
 	}
 	
 	public boolean isInArea(Shape shape){
-		int x = shape.location.x;
-		int y = shape.location.y;
-		if(x >= sp.x && x <= ep.x && y >= sp.y && y<= ep.y
-				&& x+shape.width >= sp.x && x+shape.width <= ep.x && shape.height+y >= sp.y && shape.height+y<= ep.y){	
-			return true;
+		try{
+			int x = shape.location.x;
+			int y = shape.location.y;
+			if(x >= sp.x && x <= ep.x && y >= sp.y && y<= ep.y
+					&& x+shape.width >= sp.x && x+shape.width <= ep.x && shape.height+y >= sp.y && shape.height+y<= ep.y){	
+				return true;
+			}
+			else
+				return false;
 		}
-		else
+		catch (NullPointerException e){
+			//ignore Line
 			return false;
+		}
 	}
 }

@@ -8,12 +8,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JPanel;
 
 import mode.*;
-import mode.SelectionMode;
 import shape.*;
 
 public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
@@ -46,6 +47,7 @@ public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 		//print shapes
 		for(Shape shape : shapes){
 			shape.drawSelf(g);
+			System.out.println(shape.getClass()+" "+shape.getDepth()+" "+shapes.indexOf(shape));
 		}
 	}
 	
@@ -96,5 +98,21 @@ public class Canvas extends JPanel implements MouseMotionListener,MouseListener{
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static void resortShapes(Shape shape,List<Shape> shapes){
+		Collections.sort(shapes,
+			new Comparator<Shape>() {
+				public int compare(Shape s1, Shape s2) {
+					return s1.getDepth()-s2.getDepth();
+				}
+			}
+		);
+		
+		//re-number depth of object
+		for(int i=shapes.size()-1;i>=0;i--){
+			Shape s = shapes.get(i);
+			s.setDepth(i+1);		
+		}
 	}
 }

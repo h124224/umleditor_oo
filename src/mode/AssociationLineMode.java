@@ -1,5 +1,7 @@
 package mode;
 
+import gui.Canvas;
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
@@ -55,10 +57,11 @@ public class AssociationLineMode extends Mode {
 			Port port1 = obj1.findCorrectPort(sp);
 			Port port2 = obj2.findCorrectPort(ep);
 			AssociationLine al = new AssociationLine(port1,port2);
+			al.setDepth(Shape.minDepth);
 			port1.getLines().add(al);
 			port2.getLines().add(al);
 			shapes.add(al);
-			System.out.println("Connect line "+obj1+" to "+obj2);
+			Canvas.resortShapes(al, shapes);
 		}
 		else{
 			System.out.println("Not connect any object.");

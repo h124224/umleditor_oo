@@ -2,8 +2,13 @@ package shape;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class Shape {
+	public static final int maxDepth = 99999999;
+	public static final int minDepth = -1;
 	Point location;
 	int width,height;
 	

@@ -1,5 +1,7 @@
 package mode;
 
+import gui.Canvas;
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import shape.*;
@@ -53,11 +55,12 @@ private static GeneralizationLineMode glMode = null;
 		if(obj1 != null && obj2 !=null){
 			Port port1 = obj1.findCorrectPort(sp);
 			Port port2 = obj2.findCorrectPort(ep);
-			GeneralizationLine al = new GeneralizationLine(port1,port2);
-			port1.getLines().add(al);
-			port2.getLines().add(al);
-			shapes.add(al);
-			System.out.println("Connect line "+obj1+" to "+obj2);
+			GeneralizationLine gl = new GeneralizationLine(port1,port2);
+			gl.setDepth(Shape.minDepth);
+			port1.getLines().add(gl);
+			port2.getLines().add(gl);
+			shapes.add(gl);
+			Canvas.resortShapes(gl, shapes);
 		}
 		else{
 			System.out.println("Not connect any object.");
